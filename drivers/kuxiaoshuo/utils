@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# URL settings
+site=https://www.kuxiaoshuo.com
+index=$site/$id
+page=$site/$id/$page_id/
+
+# TODO check for charset
+fetch() {
+    curl -s $1 | iconv -f GBK -t UTF8
+}
+
+check_list() {
+    local ret=0
+
+    touch $check_cache
+    fetch $index >$index_cache
+
+    res=$(cat $index_cache | grep "<dd>" | tail -n1)
+    echo $res | diff - $check_cache &&
+        ret=1 ||
+        echo $res >$check_cache
+
+    return $ret
+}
+
+check_remove() {
+    rm $check_cache
+}
+
+fetch_page() {
+    name=$1
+    url=$(sed 's/.*href=\"//;s/\">.*//' $check_cache)
+    title=$(sed 's/<\/a.*//;s/.*>//' $check_cache)
+
+    while :; do
+        curl -s $url | iconv -f GBK >/tmp/kuxiaoshuo-$id
+        [ $? -eq 0 ] && break
+        sleep 3
+    done
+
+    cat <<END
+$title
+$name<br />
+$title<br />
+---
+END
+    cat /tmp/kuxiaoshuo-$id
+}
