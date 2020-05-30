@@ -8,5 +8,4 @@ pack_up() {
     }'
     # TODO font-size
     grep -b "div id=\"content\"" | sed 's/.*<div id="content">//'
-    echo "</body>"
 }
