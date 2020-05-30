@@ -27,7 +27,7 @@ check_list() {
     local res=$(cat $index_cache | grep "<dd>" | tail -n1)
 
     check_diff "$(echo $res | sed 's/.*href=\"//;s/\">.*//')" \
-        "$(cat $check_cache | sed 's/.*href=\"//;s/\">.*//'))"
+        "$(cat $check_cache | sed 's/.*href=\"//;s/\">.*//')"
     if [ $? -eq 0 ]; then
         ret=1
     else
