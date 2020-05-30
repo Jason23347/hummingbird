@@ -37,10 +37,6 @@ check_list() {
     return $ret
 }
 
-check_remove() {
-    rm $check_cache
-}
-
 fetch_page() {
     name=$1
     url=$(sed 's/.*href=\"//;s/\">.*//' $check_cache)
