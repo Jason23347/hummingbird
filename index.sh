@@ -6,7 +6,7 @@ source $DIR/env
 
 # using mutt to sned mail
 source $DIR/mail/mutt/utils
-[ $debug -eq 1 ] && {
+[ $debug -gt 0 ] && {
     unset send_mail
     send_mail() {
         tee
@@ -21,7 +21,7 @@ ls $DIR/$conf_dir | while read conf; do
     source $DIR/$template_dir/$template/utils
 
     # scheduled tasks
-    [ $debug -eq 1 ] || check_list
-    [ $? -eq 0 ] &&
+    [ $debug -gt 0 ] || check_list
+    [ $debug -gt 1 ] || [ $? -eq 0 ] &&
         fetch_page $name | pack_up | send_mail
 done
