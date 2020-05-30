@@ -4,12 +4,8 @@ DIR=${0%/*}
 
 source $DIR/env
 
-send_mail() {
-    read subject
-    mutt -s "${subject:-"最新章节"}" \
-        -e "set content_type=text/html" \
-        $rcpt
-}
+# using mutt to sned mail
+source $DIR/mail/mutt/utils
 
 # autoload config
 ls $DIR/$conf_dir | while read conf; do

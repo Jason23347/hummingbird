@@ -1,0 +1,8 @@
+#!/bin/bash
+
+send_mail() {
+    read subject
+    mutt -s "${subject:-"最新章节"}" \
+        -e "set content_type=text/html" \
+        $rcpt
+}
