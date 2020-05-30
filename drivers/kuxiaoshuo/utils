@@ -5,6 +5,10 @@ site=https://www.kuxiaoshuo.com
 index=$site/$id
 page=$site/$id/$page_id/
 
+# cache file settings
+index_cache=/tmp/kuxiaoshuo-cache-$id
+check_cache=/tmp/kuxiaoshuo-check-cache-$id
+
 # TODO check for charset
 fetch() {
     curl -s $1 | iconv -f GBK -t UTF8
