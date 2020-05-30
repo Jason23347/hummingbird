@@ -1,2 +1,4 @@
 env
 config/*.conf
+deploy.sh
+*.log
