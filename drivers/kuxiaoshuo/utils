@@ -40,7 +40,7 @@ check_list() {
 fetch_page() {
     name=$1
     url=$(sed 's/.*href=\"//;s/\">.*//' $check_cache)
-    title=$(sed 's/<\/a.*//;s/.*>//' $check_cache)
+    chapter=$(sed 's/<\/a.*//;s/.*>//' $check_cache)
 
     while :; do
         curl -s $url | iconv -f GBK >/tmp/kuxiaoshuo-$id
@@ -49,9 +49,8 @@ fetch_page() {
     done
 
     cat <<END
-$title
-$name<br />
-$title<br />
+$name
+$chapter<br />
 ---
 END
     cat /tmp/kuxiaoshuo-$id
