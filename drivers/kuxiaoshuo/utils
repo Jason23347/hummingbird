@@ -14,16 +14,25 @@ fetch() {
     curl -s $1 | iconv -f GBK -t UTF8
 }
 
+check_diff() {
+    [ "$1" == "$2" ]
+    return $?
+}
+
 check_list() {
     local ret=0
 
     touch $check_cache
     fetch $index >$index_cache
+    local res=$(cat $index_cache | grep "<dd>" | tail -n1)
 
-    res=$(cat $index_cache | grep "<dd>" | tail -n1)
-    echo $res | diff - $check_cache &&
-        ret=1 ||
-        echo $res >$check_cache
+    check_diff "$(echo $res | sed 's/.*href=\"//;s/\">.*//')" \
+        "$(cat $check_cache | sed 's/.*href=\"//;s/\">.*//'))"
+    if [ $? -eq 0 ]; then
+        ret=1
+    else
+        printf "%s" "$res" >$check_cache
+    fi
 
     return $ret
 }
