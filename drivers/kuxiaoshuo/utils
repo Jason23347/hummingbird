@@ -45,7 +45,6 @@ check_list() {
     touch $check_cache
     write_log "info" "Fetching index page of $name [$id]"
     fetch $index >$index_cache
-    echo $index >&2
     local res=$(cat $index_cache | grep "<dd>" | tail -n1)
 
     # only checks for URL
