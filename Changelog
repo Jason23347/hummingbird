@@ -1,0 +1,16 @@
+VERSION 1.0 2020-05-31
+
+  [ Jason ]
+* init repo
+* Add excutable entry file
+* Add enviroment file
+* Add driver for kuxiaoshuo.com
+* Add letter template novel
+* Add config directory
+* Add LICENSE
+* Add mail library
+* Add debug mode Ref: #4
+* novel: Add style of font-size & move awk script into progfile
+* index: Specify debug level
+* Add SPDX header to all the files
+* Add log & setup log for kuxiaoshuo
