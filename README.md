@@ -1,22 +1,45 @@
-# 说明
+# Humming bird
 
 此项目通过crontab运行，自动爬取相关网站数据、封装并发送邮件通知。
 
-## 安装
+## 部署
+
+### env
+首先参考已存在的 `env.example` 模板文件创建真正的 `env` file。
+```
+cp env.example env
+vim env
+```
+
+### 安装 cron 定时任务
+cron 定时任务应如下所示：
+```
+*/5 * * * * /path/tp/hummingbird/index.sh
+```
+
+### 修改日志文件路径
+日志文件默认存储在 hummingbird 当前目录，定义在 index.sh 中。
 
 ## 目录结构与说明
     .
     ├── config
-    │   ├── 1.conf
-    │   └── 2.conf
+    │   ├── novel1.conf
+    │   └── novel2.conf
     ├── drivers
     │   └── kuxiaoshuo
     │       ├── example.conf
     │       └── utils
-    ├── env
+    ├── env.example
     ├── index.sh
     ├── letters
     │   └── novel
+    │       └── utils
+    ├── LICENSE
+    ├── log-styles
+    │   └── plain
+    │       └── utils
+    ├── mail
+    │   └── mutt
     │       └── utils
     └── README.md
 
@@ -29,6 +52,10 @@
 `index.sh`是脚本入口，自动检测`conf`文件夹下的文件并运行。
 
 `letters`包含各种信件模板。
+
+`log-styles`包含日志相关操作。
+
+`mail`包含发送邮件的相关操作。
 
 ## PIPE API
 
@@ -88,7 +115,8 @@ subject
 第一行是邮件主题，其余都是邮件内容。
 
 ### send_mail
-除了读取第一行作为邮件主题（subject），对于`pack_up`输入的数据不应该作任何处理，通过邮件工具发送出去。
+`send_mail`应该在`mail`子目录中定义，子目录名即为库名。
+`send_mail`应该读取第一行作为邮件主题（subject），之后对于`pack_up`输入的数据不应该作任何处理，通过邮件工具（如sendmail，mutt等）发送。
 
 ### pipe 编程注意事项
 显而易见地，下一个函数不会等待你的输出结束再开始执行，所以如下形式是错误写法：
