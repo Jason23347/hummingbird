@@ -51,14 +51,32 @@ check_list
 该函数的第一个参数是小说的名字，并且应该抓取网页内容。
 输出的数据应如下格式
 ```
-meta info
+<mail subject>
+meta head
 end with '---', or longer
-------
-<html>
-...
-</html>
+---
+original website data
 ```
+第一行代表小说的名字。
 除却网页数据外，还可以在开头加上元数据，通过三个连续的减号 '---' 隔开，或者更长。
+样例数据和处理结果（novel template）。
+
+example:
+```
+subject
+chapter name
+---
+web data
+something here
+```
+
+result:
+```html
+subject
+<p style="font-size: 25px;">chapter name</p>
+<p style="font-size: 20px;">web data</p>
+<p style="font-size: 20px;">something here</p>
+```
 
 ### pack_up
 应当通过awk等工具预先处理元数据部分。之后对网页部分进行处理。
