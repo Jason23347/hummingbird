@@ -41,5 +41,5 @@ ls $DIR/$conf_dir | while read conf; do
     check_list
     ret=$?
     [ $debug -gt 1 ] || [ $ret -eq 0 ] &&
-        fetch_page $name | pack_up | send_mail
+        fetch_page | pack_up | send_mail
 done
