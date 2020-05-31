@@ -39,7 +39,7 @@
 ```bash
 check_list
 [ $? -eq 0 ] &&
-    fetch_page $name | pack_up | send_mail
+    fetch_page | pack_up | send_mail
 ```
 其中 `check_list` 和 `fetch_page`在爬虫驱动中定义，`pack_up` 在信件模板中定义，`send_mail`目前写死，在`index.sh`中定义。
 
