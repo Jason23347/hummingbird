@@ -16,11 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Log settings
-log_style=colorful
-log_file=$DIR/$driver.log
-source $DIR/log-styles/$log_style/utils
-
 # URL settings
 site=https://www.kuxiaoshuo.com
 index=$site/$id
