@@ -37,7 +37,9 @@ ls $DIR/$conf_dir | while read conf; do
     source $DIR/$template_dir/$template/utils
 
     # scheduled tasks
-    [ $debug -gt 0 ] || check_list
-    [ $debug -gt 1 ] || [ $? -eq 0 ] &&
+    ret=0
+    check_list
+    ret=$?
+    [ $debug -gt 1 ] || [ $ret -eq 0 ] &&
         fetch_page $name | pack_up | send_mail
 done
