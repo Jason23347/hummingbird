@@ -33,6 +33,6 @@ color["escape"]=$WHITE
 write_log() {
     local level=$1
     local message="$2"
-    printf "${color[escape]}[${color[$level]}%s${color[escape]}] %s %s: %s\n" \
+    printf "${color[escape]}[${color[$level]}%s${color[escape]}]\t[%s] %s: %s\n" \
         "$level" "$(date +${time_format})" "${driver:-log}" "$message" >&3
 }

@@ -22,6 +22,6 @@
 write_log() {
     local level=$1
     local message="$2"
-    printf "[%s] %s %s: %s\n" "$level" \
+    printf "[%s]\t%s\t%s: %s\n" "$level" \
         "$(date +${time_format})" "${driver:-log}" "$message" >&3
 }
