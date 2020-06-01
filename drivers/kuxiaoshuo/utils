@@ -72,5 +72,8 @@ $name
 $chapter
 ---
 END
-    cat /tmp/kuxiaoshuo-$id
+    # wrap up with style of font-size
+    cat /tmp/kuxiaoshuo-$id | grep -b "div id=\"content\"" |
+        sed 's/.*<div id="content">//' |
+        awk '{print "<p style=\"font-size: 20px;\">"$0"</p>"}'
 }

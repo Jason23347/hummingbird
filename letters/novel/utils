@@ -17,8 +17,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 pack_up() {
+    # deal with meta info
     awk -f $DIR/$template_dir/$template/meta-head.awk
-    # wrap up with style of font-size
-    grep -b "div id=\"content\"" | sed 's/.*<div id="content">//' |
-        awk '{print "<p style=\"font-size: 20px;\">"$0"</p>"}'
+    # repeat entire stream
+    tee
 }
