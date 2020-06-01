@@ -36,11 +36,17 @@ check_diff() {
 
 check_list() {
     local ret=0
+    local tmpfile=/tmp/$driver-tmp-$id
 
     touch $check_cache
     write_log "info" "Fetching index page of $name [$id]"
-    fetch $index >$index_cache
-    local res=$(cat $index_cache | grep "<dd>" | tail -n1)
+    fetch $index >"$tmpfile"
+    local res=$(cat $tmpfile | grep "<dd>" | tail -n1)
+    [ "$res" == "" ] && {
+        write_log "warning" "Got empty list of $name [$id]"
+        return 1
+    }
+    mv $tmpfile $index_cache
 
     # only checks for URL
     check_diff "$(echo $res | sed 's/.*href=\"//;s/\">.*//')" \
