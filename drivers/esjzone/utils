@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+# Hummingbird - A bash framework for novel crawlers
+# Copyright (C) 2020    Jason
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# URL settings
+site=https://www.esjzone.cc
+index=$site/detail/$id.html
+
+index_cache=/tmp/esjzone-index-$id
+tmp_cache=/tmp/esjzone-tmp-$id
+
+check_diff() {
+    diff -wB $1 $2 | grep "<a href"
+}
+
+check_list() {
+    touch $index_cache
+    curl -s $index |
+        awk -f $DIR/drivers/$driver/getlist.awk >"$tmp_cache"
+    diff -wB $index_cache $tmp_cache | grep "<a href"
+    return $?
+}
+
+fetch_page() {
+    cat <<END
+$name
+以下章节有更新：
+---
+END
+    diff -wNB $index_cache $tmp_cache |
+        grep "^> " | sed 's/^> //'
+    mv $tmp_cache $index_cache
+
+    cat <<END
+<hr /><br />
+更多内容点击<a href="$index">这里</a>。
+END
+}
