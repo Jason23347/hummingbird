@@ -50,7 +50,7 @@ check_func write_log
 # using mutt to send mail
 mail_lib=mutt
 source $DIR/mail/$mail_lib/utils
-[ $debug -gt 0 ] && {
+[ $debug -gt 1 ] && {
     unset send_mail
     send_mail() {
         tee
@@ -87,6 +87,6 @@ ls $DIR/$conf_dir | while read conf; do
     ret=0
     check_list
     ret=$?
-    [ $debug -gt 1 ] || [ $ret -eq 0 ] &&
+    [ $debug -gt 0 ] || [ $ret -eq 0 ] &&
         fetch_page | pack_up | send_mail
 done
