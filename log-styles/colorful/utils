@@ -23,7 +23,7 @@ WHITE="\033[0m"
 
 declare -A color
 color["info"]=$BLUE
-color["warning"]=$YELLOW
+color["warn"]=$YELLOW
 color["error"]=$RED
 color["escape"]=$WHITE
 

@@ -69,7 +69,7 @@ fetch_page() {
         write_log "info" "Fetching page $url"
         curl -s $url | iconv -f GBK >/tmp/kuxiaoshuo-$id
         [ $? -eq 0 ] && break
-        write_log "warning" "iconv: Format convert failed"
+        write_log "warn" "iconv: Format convert failed"
         sleep 3
     done
 
